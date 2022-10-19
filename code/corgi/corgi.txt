@@ -1,0 +1,179 @@
+int xp = 0;
+int yp = 0;
+
+void setup()  {
+  size(800,800);
+  background(179,224,141);
+  
+}
+
+
+void draw()  {
+  background(179,224,141);
+  push();
+  scale(1.3);
+  translate(mouseX,mouseY);
+  pair();
+  if (keyPressed)  {
+    fill(0);
+    ellipse(32,11,20,20);
+  }
+ 
+  pop();
+  
+  
+  
+  push();
+  translate(200,200);
+  scale(.5);
+  rotate(radians(45));
+  dog();
+  bone();
+  pop();
+  
+  //push();
+  //translate(300,300);
+  //bunny();
+  //pop();
+}
+  
+  
+  void pair()  {
+    dog();
+   
+    bone();
+    
+  }
+  void dog()  {
+ legs (-110,70, color (175, 124, 70));
+ body (-100,-25, color (175, 124, 70));
+ tummy (-50,77, color (245, 235, 223));
+ arms (-90,80, color (175, 124, 70));
+ armpit (-90,80, color (175, 124, 70));
+ head (0,0, color (175, 124, 70));
+ nose (0,10, color (0));
+ eyes (-60,5, color (0));
+ eyewhite (-65,4, color (255));
+ ears (-75,-75, color (175, 124, 70));
+    
+  }
+
+void legs(int xp, int yp, color c)  {
+  fill(c);
+  stroke(0);
+  rect(xp,yp,xp+160,yp+30,100);
+  rect(xp+170,yp,xp+160,yp+30,100); 
+}
+
+void body(int xp, int yp, color c)  {
+  fill(c);
+  rect(xp,yp,xp+300,yp+225,100);
+}
+
+void tummy(int xp, int yp, color c)  {
+  fill(c);
+  noStroke();
+  rect(xp,yp,xp+150,yp+23,150); 
+}
+ 
+ void arms(int xp, int yp, color c)  {
+   fill(c);
+   stroke(0);
+   rect(xp,yp,xp+140,yp+20,100);
+   rect(xp+130,yp,xp+140,yp+20,100);
+ }
+
+void armpit(int xp, int yp, color c)  {
+  fill(c);
+  noStroke();
+  rect(xp,yp,xp+140,yp-65,100);
+  rect(xp+130,yp,xp+140,yp-65,100);
+}
+
+void head(int xp, int yp, color c)  {
+  fill(c);
+  stroke(0);
+  ellipse(xp,yp,xp+200,yp+150);
+  
+  fill(245, 235, 223); 
+  noStroke();
+  beginShape();
+  vertex(0,0);
+  vertex(-60,60);
+  vertex(-30,72);
+  vertex(0,75);
+  vertex(30,72);
+  vertex(60,60);
+  endShape(CLOSE);
+}
+
+void nose(int xp, int yp, color c)  {
+  fill(c);
+  ellipse(xp,yp,xp+25,yp+10);
+  
+  noFill();
+  stroke(0);
+  line(0,0,0,25);
+  line(0,25,-7,35);
+  line(0,25,7,35);
+}
+
+void eyes(int xp, int yp, color c)  {
+  fill(c);
+  ellipse(xp,yp,xp+80,yp+10);
+  ellipse(xp+125,yp,xp+80,yp+10);
+}
+
+void eyewhite(int xp, int yp, color c)  {
+  fill(c);
+  noStroke();
+  ellipse(xp,yp,xp+70,yp+1);
+  ellipse(xp+135,yp,xp+70,yp+1);
+}
+
+void ears(int xp, int yp, color c)  {
+  fill(c);
+  stroke(0);
+  rect(xp,yp,xp+105,yp+105,30);
+  rect(xp+120,yp,xp+105,yp+105,30);
+}
+
+void bone()  {
+  rotate(radians(70));
+  leftcirc(-205,-50,color (254, 244, 233));
+  rightcirc(-160,-50, color (254, 244, 233));
+  connector(-200,-50, color (254, 244, 233));
+}
+
+void leftcirc(int xp, int yp, color c) {
+  fill(c);
+  stroke(0);
+  ellipse(xp,yp,xp+185,yp+70);
+  ellipse(xp,yp+10,xp+185,yp+70); 
+}
+
+void rightcirc(int xp, int yp, color c)  {
+  fill(c);
+  stroke(0);
+  ellipse(xp,yp,xp+180,yp+70);
+  ellipse(xp,yp+10,xp+180,yp+70);
+}
+
+void connector(int xp, int yp, color c)  {
+  fill(c);
+  noStroke();
+  rect(xp,yp,xp+235,yp+65);
+  
+  stroke(0);
+  line(-195,-50,-170,-50);
+  line(-195,-35,-170,-35); 
+ 
+ 
+ if (frameCount == 200)  {
+      exit();
+    }
+   saveFrame("images/finalcorgi####.png");
+}
+
+ 
+

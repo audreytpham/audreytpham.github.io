@@ -1,0 +1,81 @@
+// Example 4.4 Adjustable Array Version
+
+int count = 200;
+float[] posX = new float[count];
+float[] posY = new float[count];
+float[] speedX = new float[count];
+float[] speedY = new float[count];
+float[] sizeW = new float[count];
+float[] sizeH = new float[count];
+int[] colors = new int[count];
+int[] alp = new int[count];
+int [] strokeWeight = new int[count];
+int [] rot = new int[count];
+int [] newobj = new int[count];
+int [] secobj = new int[count];
+
+void setup() {
+  size(600, 600);
+  for (int i=0; i < posX.length; i++) {
+    posX[i] = width/2;
+    posY[i] = height/2;
+    speedX[i] = random(-3, 3);
+    speedY[i] = random(-3, 3);
+    sizeW[i] = random(20, 70);
+    sizeH[i] = random(20, 100);
+    colors[i] = int(random(0, 255));
+    alp[i] = int(random(0,150));
+    strokeWeight[i] = int(random(0,10));
+    rot[i] = int(random(0,360));
+    newobj[i] = int(random(0,2));
+    secobj[i] = int(random(0,3));
+    println(newobj);
+    println(secobj);
+  }
+}
+void draw() {
+  background(155);
+  fill(255);
+  rect(40, 40, width-80, height-80);
+  for (int i = 0; i < posX.length; i++) {
+    //update all positions
+    posX[i] += speedX[i];
+    posY[i] += speedY[i];
+    //draw all balls
+    fill(0,100, colors[i], alp[i]);
+    strokeWeight(strokeWeight[i]);
+    //push();
+    rotate(rot[i]);
+    //pop();
+    rect(posX[i], posY[i], sizeW[i], sizeW[i]);
+    //check boundaries for all balls
+  
+    if (posX[i] < 40+sizeW[i]/2 || posX[i] > (width-40)-sizeW[i]/2 ) {
+      speedX[i] = -speedX[i];
+    }
+    if (posY[i] < 40+sizeW[i]/2 || posY[i] > (height-40)-sizeW[i]/2) {
+      speedY[i] = -speedY[i]; 
+    }
+    if (newobj[i] < 1)  {
+      ellipse(posX[i],posY[i],posX[i]-20,posX[i]-20);
+    }else{
+      rect(posX[i],posY[i],posY[i]+20,posY[i]+40);
+     
+    }
+    translate(-60,0);
+    if (secobj[i] > 0)  {
+      triangle(posX[i],posY[i],posX[i]+30,posY[i]+50,posX[i]-30,posY[i]+50);
+    }
+    
+  }
+  record(1000);
+}
+void record(int x) {
+  
+  if ( frameCount < x ) {  
+    saveFrame("images/exercise4####.png");
+  } else {
+    exit();    
+  }
+ 
+}

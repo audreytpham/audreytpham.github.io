@@ -1,0 +1,127 @@
+FIRST TAB
+
+float gl, gl2;   
+Branches c1, c2;
+float counter1, counter2, counter3;
+int i = 0;
+
+void setup() {
+  size(900, 900);
+  //frameRate(3);
+  colorMode(HSB);
+  counter1 = 0;
+  counter2 = 120;
+  counter3 = height;
+  gl = 0;
+  gl2 = 0;
+  c1 = new Branches(200,400, 150,0);
+  c2 = new Branches(500,600, 90,0);
+}
+
+void draw() {
+  background(i,150,150);
+  frameRate(30);
+  stroke(255);
+  i++;
+  if (i > 255)
+  i = 0;
+
+  // removed the orginal push pop in the tree code,
+  // and put it on the cactus class.
+  if ( frameCount > 200 ) {
+    float a = (counter1 / (float) width) * 90f;
+    // Convert it to radians
+    gl = radians(a);
+    c1.display();
+    c1.updateAng(gl);
+    counter1+= 1.5;
+  }
+
+ if ( frameCount > 400 ) {
+  float a2 = (counter2 / (float) width) * 90f;
+  // Convert it to radians
+  gl2 = radians(a2);
+  c2.display();
+  c2.updateAng(gl2);  
+  counter2+= .15;
+  counter3+= -1;
+   //if (frameCount == 100)  {
+   //   exit();
+   // }
+   
+ }
+ if (frameCount > 800)  {
+      exit();
+    }
+saveFrame("images4/project2####.png");
+}
+
+
+
+TAB 2
+
+class Branches {
+
+  float theta = 0;
+  float branchSize = 0;
+  float posx, posy;
+  float rra;
+  float rrs;
+
+
+  Branches(float lx, float ly, float lb, float la ) {
+    posx = lx;
+    posy = ly;
+    branchSize = lb;
+    theta = la;
+    rra = random(-30, 30);
+    rrs = random(.5, 2);
+    
+  }
+
+  void display() {
+    push();
+    translate(posx, posy);
+    rotate(radians(rra));
+    scale(rrs);
+    split(branchSize, theta);
+    pop();
+  }
+
+
+  void updateAng(float la) {
+    theta = la;
+  };
+
+  void split(float h, float la) {
+    // Each branch will be 2/3rds the size of the previous one
+    h *= 0.75;
+
+    // All recursive functions must have an exit.
+    if (h > 4) {
+      //first part
+      pushMatrix();    // Save the current state of transformation (i.e. where are we now)
+      rotate(la +.21);   // Rotate by theta
+      fill(255);
+      //rect(0, 0, 0, -h);  // Draw the branch
+      fill(i,250,250);
+      triangle(0, 0, 10, 10,-10,10 );
+      translate(0-100, -h); // Move to the end of the branch
+      split(h, la);       // Ok, now call myself to draw two new branches!!
+      popMatrix();     // Whenever we get back here, we "pop" in order to restore the previous matrix state
+
+      //the second part
+      pushMatrix();
+      rotate(-la);
+      fill(255);
+      stroke(0);
+      triangle(0, 0, 10, -h,-10,-h);  // Draw the branch
+      fill(255, 0, 0);
+      //rect(0, 0, 10, 10 );
+      translate(0+100, -h);
+      split(h, la);
+      popMatrix();
+
+    }
+  }
+}

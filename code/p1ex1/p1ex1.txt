@@ -1,0 +1,92 @@
+float randr = 0;
+float randg = 0;
+float randb = 0;
+float a = 0;
+float x = 0;
+float inc = TWO_PI/10.0;
+int counter = 0;
+
+
+void setup() {
+  size(800, 800);
+  background(255, 174, 237);
+  stroke(255, 183, 235 );
+  strokeWeight(2);
+  smooth();
+  frameRate(5);
+  //colorMode(HSB, 255, 255, 255);
+  //Float a = 0.0;
+  //float inc = TWO_PI/10.0;
+  //println(" The inc = " + inc);
+  //stroke(30, 99, 29);
+
+  for (int i=0; i<800; i+=5) {
+    //line(i, 800, 400, sin(a)*60.0);
+   // println(" The angle = " + a + "The sin = " + sin(a));
+    a = a + inc;
+  }
+}
+
+void draw() {
+  for (int i = 0; i < 800; i += 40) {
+    for (int j = 0; j < 800; j += 40) {
+      randr = random(250);
+      randg = random(250);
+      randb = random(250);
+      fill(randr, randg, randb);
+      stroke(255);
+      rect( i+10, j+10, 20, 20, 5 );
+
+      //yellow ellipse
+      strokeWeight(1);
+      stroke(48, 59, 193);
+      fill(255, 210, 91);
+      ellipse(0, counter, width - random(200), 60);
+
+      //orange
+      stroke(180, 35, 134);
+      strokeWeight(2);
+      fill(255, 153, 91);
+      ellipse(counter, 0, 50, height - random(500));
+
+      //red
+      strokeWeight(1);
+      stroke(54, 116, 60 );
+      fill(199, 0, 57);
+      ellipse(800, counter, width - random(-200), 60);
+
+      //purple
+      strokeWeight(1);
+      stroke(255, 240, 89) ;
+      fill(156, 100, 211);
+      ellipse(counter, 800, 50, height - random(-500));
+
+      //pink
+      strokeWeight(1);
+      stroke(109, 246, 255);
+      fill(255, 0, 120 );
+      ellipse(800, 800, height - random(500), counter);
+      if (counter > height) {
+        //background(255,174,237);
+        counter = 0;
+      } else {
+        counter+=7;
+        //sin code start
+        float s = sin(a);
+        //background(255*s, 205, 248);
+        fill(255) ;
+        rect(10, x, 150, sin(a)*100, 50);
+        rect(350, x+100, 150, sin(a)*100, 50);
+        rect(600, x-100, 150, sin(a)*100, 50);
+        rect(200, x-300, 150, sin(a)*100, 50);
+        rect(500, x-500, 150, sin(a)*100, 50);
+        a-=.01;
+        x+=.05;
+
+        fill(255, 222, 87);
+        stroke(0);
+        ellipse(s*50+x, s*50+x, 100, 100);
+      }
+    }
+  }
+}

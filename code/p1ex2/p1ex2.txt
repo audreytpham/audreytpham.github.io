@@ -1,0 +1,72 @@
+int tCounter = -20;
+PFont f;
+PImage b;
+PImage b2;
+PImage b3;
+
+void setup() { 
+  size(800, 600); 
+  background(0);
+  f = createFont("Impact",40);
+  textFont(f);
+  fill(255,0,0);
+  
+  b = loadImage("yellowamongus.png");
+  b2 = loadImage("victory.jpg");
+  b3 = loadImage("imposter.jpg");
+} 
+
+
+void draw() { 
+  
+  tint(255,0,0);
+  image(b,0,0,width,height);
+  
+   //background(0);
+  fill(255, 0, 0);
+  text("EJECTED", tCounter, 100);
+  text("EJECTED", tCounter, 200);
+  text("EJECTED", tCounter, 300);
+  text("EJECTED", tCounter, 400);
+  text("EJECTED", tCounter, 500);
+  text("EJECTED", tCounter, 600);
+  text("EJECTED", tCounter, 700);
+  text("EJECTED", tCounter, 800);
+  
+   tCounter +=5;
+   
+   if (tCounter > width ) {
+     tCounter = -20;
+     image(b2,0,0,width,height);
+   }
+   
+   
+  if (keyPressed) {
+    image(b2,0,0,width,height);
+    noTint();
+  }
+//  println(tCounter);
+  
+ 
+  
+//  tCounter +=5;
+  
+//  if (tCounter > width) {
+    
+//    tCounter = -50;
+ 
+  if  ( (tCounter % 100)  == 0)  {
+     image(b3,200,200,width/2,height/2);
+    
+  } else {
+    
+   
+    
+  }
+//}
+ if (frameCount == 200)  {
+      exit();
+    }
+   saveFrame("images/finalcorgi####.png");     
+
+}

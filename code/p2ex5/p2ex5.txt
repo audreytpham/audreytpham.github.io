@@ -1,0 +1,247 @@
+
+FIRST TAB:
+
+PEACH[] peachArr = new PEACH[30];
+
+int currentPEACH;
+int tCounter = 1;
+
+
+void setup() {
+  size(800,800);
+  //frameRate(1);
+  noStroke();
+
+ 
+  
+  
+  currentPEACH = 0;
+  
+ color col;
+ color leaf;
+  for (int i = 0; i < peachArr.length; i++) {
+    col = color(235, 142, 172);
+    leaf = color(123, 198, 113);
+    peachArr[i] = new PEACH(col,leaf,random(width),height/2," cronch*"); 
+    
+  }
+}
+
+void draw() {
+  background(221, 241, 218);
+  //fill(255,30);
+  //rect(0,0,500,500);
+  
+  for (int i = 0; i < peachArr.length; i++) {
+  peachArr[i].update();
+  peachArr[i].display();
+  peachArr[i].vertical();
+  peachArr[i].big();
+  //peachArr[i].words();
+  
+  //peachArr[i].colchange();
+  }
+  
+  peachArr[peachArr.length-1].big();
+  //crossMarks();
+  record(1000);
+}
+
+void mousePressed() {
+  
+  println("changing");
+  
+  peachArr[currentPEACH].start();
+  
+  currentPEACH ++;
+if (currentPEACH > peachArr.length -1 ) {
+    currentPEACH = 0;
+  }
+  
+  for (int i = 0; i < peachArr.length; i++) {
+  peachArr[i].newDirection();
+  peachArr[i].newRotation();
+ 
+  
+  }
+  
+ // saveFrame("images3/exercise5####.png");
+}
+
+void record(int x) {
+  
+  if ( frameCount < x ) {  
+    saveFrame("output/exercise5####.png");
+  } else {
+    exit();    
+  }
+ 
+}
+
+
+
+SECOND TAB:
+
+
+class PEACH { 
+  // class variables that are unique to each instance of a class.
+  color c;
+  color l;
+  float xpos;
+  float ypos;
+  String orifice;
+  float xspeed;
+  float yspeed;
+  float rot;
+  float rota;
+  int spinner;
+  int vis;
+  int vert;
+  
+  
+  
+  
+  // The Constructor is like setup and helps defines the details of the object
+  PEACH(color tempC,color tempL, float tempXpos, float tempYpos, String oa) { 
+    // tempC, tempXpos, etc. are the argument vars that pass data to the class vars
+    c = tempC;
+    l = tempL;
+    
+     xpos = tempXpos;
+     ypos = tempYpos;
+    orifice =  "*cronch" + oa;
+    
+    xspeed = random(-.1,.1);
+    yspeed = random(-.1,.1);
+    rot = 0.0;
+    rota = random(-.1,.1);
+    
+    spinner = int(random(2));
+    
+    vert = int(random(2));
+    
+    println(spinner);
+    
+    vis = 0;
+   
+  }
+  
+  void start()  {
+    vis = 1;
+  }
+  
+  // functions inside of Classes are called methods
+  // This one is designed to go in the draw loop and called repeatly
+  void display() {
+    if (vis == 1)  {
+      ship();
+    }
+  }
+    void ship()  {
+    push();
+    translate(xpos,ypos);
+    if (spinner == 1)  {
+    rotate(radians(rot));
+    }
+    
+    //stroke(0);
+    noStroke();
+    fill(l);
+    rectMode(CENTER);
+    //push();
+    //rotate(radians(5));
+    stroke(104, 158, 97);
+    ellipse(0+10,0+15,random(15,20) +10,random(10,15));
+    ellipse(0-15,0+15,random(15,20) +10,random(10,15));
+    //pop();
+    stroke(227, 71, 142);
+    fill(c);
+    ellipse(0,0+40,random(4,8) +45,random(2,4)+40);
+    
+    pop();
+   
+   push();
+   translate(xpos,ypos);
+   fill(227, 71, 142);
+   text( orifice,0+5,0 -15);
+   pop();
+  }
+  
+  
+  void update() {
+    
+    xpos = xpos + xspeed;
+    ypos = ypos + yspeed;
+    xpos += random(-1,1);
+    ypos += random(-1,1);
+    rot+=rota;
+   
+    
+    if (xpos > width) {
+      xpos = 0;
+    }
+    
+    if (xpos < 0) {
+      xpos = width;
+    }
+    
+    if (ypos > height) {
+      ypos = 0;
+    }
+    
+    if (ypos < 0) {
+      ypos = height;
+    }
+  }
+  
+  
+  void newDirection() {
+    xspeed = random(-3,3);
+    yspeed = random(-3,3);
+    
+  }
+  
+  void newRotation()  {
+    rota = random(-2,2);
+  }
+  
+  
+  void vertical()  {
+    push();
+    
+    if (vert == 1)  {
+      ypos += random(50);
+    }
+    
+    noStroke();
+    fill(l);
+    rectMode(CENTER);
+    //push();
+    //rotate(radians(5));
+    stroke(104, 158, 97);
+    ellipse(0+10,0+15,random(15,20) +10,random(10,15));
+    ellipse(0-15,0+15,random(15,20) +10,random(10,15));
+    //pop();
+    stroke(227, 71, 142);
+    fill(c);
+    ellipse(0,0+40,random(4,8) +45,random(2,4)+40);
+    
+    pop();
+   
+   //push();
+   //translate(xpos,ypos);
+   //fill(227, 71, 142);
+   //text( orifice,0+5,0 -15);
+   //pop();
+   
+  }
+
+  void big()  {
+    if (xpos < 100)  {
+     translate(xpos+random(50,100),ypos);
+      scale(2);
+      
+    
+    }
+  }
+}
